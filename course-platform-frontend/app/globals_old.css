@@ -1,0 +1,684 @@
+/*#region CSS переменные*/
+:root {
+  --bg-black: #000000;
+  --bg-dark: #141414;
+  --bg-card: #141414;
+  --bg-hover: #2a2a2a;
+  --bg-nav: #1f1f1f;
+  --bg-input: #1a1a1a;
+  --border-color: #374151;
+  --border-hover: #6b7280;
+  --text-white: #ffffff;
+  --text-gray: #9ca3af;
+  --text-gray-light: #d1d5db;
+  --text-error: #fca5a5;
+  --text-success: #86efac;
+  --text-warning: #fde047;
+  --blue: #3b82f6;
+  --blue-hover: #60a5fa;
+  --green: #16a34a;
+  --green-hover: #15803d;
+  --red: #dc2626;
+  --red-hover: #b91c1c;
+  --yellow: #eab308;
+  --yellow-hover: #ca8a04;
+  --gray: #6b7280;
+  --transition: all 0.2s ease;
+  --transition-fast: all 0.2s ease-in-out;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+/*#endregion*/
+
+/*#region Базовые стили*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+p, span, li {
+  color: var(--text-white);
+}
+/*#endregion*/
+
+/*#region Утилиты*/
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.main-content {
+  padding: 1rem;
+}
+
+.loading, .loading-message, .users-loading, .submissions-loading {
+  padding: 1rem;
+  color: var(--text-white);
+}
+
+.text-gray { color: var(--text-gray); }
+
+/* Отступы */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.p-2 { padding: 0.5rem; }
+.p-4 { padding: 1rem; }
+
+/* Сетка */
+.grid { display: grid; gap: 1rem; }
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+/*#endregion*/
+
+/*#region Карточки (общий базовый стиль)*/
+.card-base {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.card-base:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.card-interactive {
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px);
+}
+
+/* Для карточек с лёгким поднятием */
+.card-lift {
+  transition: var(--transition-fast);
+}
+
+.card-lift:hover {
+  transform: translateY(-1px);
+}
+/*#endregion*/
+
+/*#region Навигация*/
+.navbar {
+  background-color: #1f1f1f;
+  padding: 0.75rem 1rem;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  color: #9ca3af;
+}
+
+.user-name {
+  color: #d1d5db;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  font: inherit;
+}
+
+.nav-logout-button:hover {
+  color: #9ca3af;
+}
+/*#endregion*/
+
+/*#region Ссылки в контенте*/
+.main-content a:not(.nav-link):not(.lesson-link):not(.course-link):not(.my-course-link) {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.main-content a:not(.nav-link):not(.lesson-link):not(.course-link):not(.my-course-link):hover {
+  color: var(--blue-hover);
+}
+/*#endregion*/
+
+/*#region Формы и кнопки (общие)*/
+input, textarea, select {
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--blue);
+  outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--gray);
+}
+
+button {
+  background-color: var(--blue);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+/* Специфичные кнопки */
+.btn-approve, .btn-resubmit, .btn-submit, .register-button {
+  background-color: var(--green);
+}
+.btn-approve:hover, .btn-resubmit:hover, .btn-submit:hover, .register-button:hover {
+  background-color: var(--green-hover);
+}
+
+.btn-reject, .btn-delete, .users-delete-btn {
+  background-color: var(--red);
+}
+.btn-reject:hover, .btn-delete:hover, .users-delete-btn:hover {
+  background-color: var(--red-hover);
+}
+
+.btn-edit {
+  background-color: var(--yellow);
+}
+.btn-edit:hover {
+  background-color: var(--yellow-hover);
+}
+
+.btn-cancel {
+  background-color: var(--gray);
+}
+.btn-cancel:hover {
+  background-color: #4b5563;
+}
+/*#endregion*/
+
+/*#region Страницы (общий шаблон)*/
+.page-container { padding: 1rem; }
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+}
+
+/* Главная страница */
+.home-page { padding: 1rem; }
+.home-title { font-size: 1.875rem; font-weight: bold; margin-bottom: 1rem; color: var(--text-white); }
+.home-description { font-size: 1.125rem; color: var(--text-white); }
+.home-message { margin-top: 0.5rem; color: var(--text-white); }
+
+/* Страница курсов */
+.courses-page, .my-courses-page, .course-page, .lesson-page, .submissions-page, .users-page {
+  padding: 1rem;
+}
+
+.courses-grid, .my-courses-grid, .submissions-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.course-link, .my-course-link, .lesson-link {
+  text-decoration: none;
+  display: block;
+}
+
+.course-card, .my-course-card, .lesson-card, .submission-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.course-card:hover, .my-course-card:hover, .lesson-card:hover, .submission-card:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.my-course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.lesson-card {
+  padding: 0.75rem;
+}
+.lesson-card:hover {
+  transform: translateY(-1px);
+}
+
+.course-title, .my-course-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+.course-description, .my-course-description, .course-description-main {
+  color: var(--text-gray);
+  margin-bottom: 0.5rem;
+}
+
+.course-lessons {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
+
+.course-title-main, .lesson-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--text-white);
+}
+
+.course-description-main {
+  margin-bottom: 1.5rem;
+}
+
+.lessons-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+}
+
+.lessons-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.lesson-number {
+  font-weight: 500;
+  color: var(--text-white);
+}
+
+.lesson-name {
+  color: var(--text-gray-light);
+  margin-left: 0.25rem;
+}
+
+.lesson-content {
+  max-width: none;
+  color: var(--text-white);
+}
+/*#endregion*/
+
+/*#region Блоки авторизации и предупреждения*/
+.auth-warning, .auth-required {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(120, 53, 15, 0.3);
+  border: 1px solid #78350f;
+  border-radius: var(--radius-md);
+}
+
+.auth-required {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.auth-warning-text, .auth-required-text {
+  color: var(--text-warning);
+  margin-bottom: 1rem;
+}
+
+.auth-link {
+  margin-left: 0.5rem;
+  color: var(--blue-hover);
+  text-decoration: underline;
+}
+.auth-link:hover { color: #93c5fd; }
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-login {
+  display: inline-block;
+  background-color: var(--blue);
+  color: var(--text-white);
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+.btn-login:hover { background-color: #2563eb; }
+
+.btn-register {
+  display: inline-block;
+  background-color: var(--green);
+  color: var(--text-white);
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+.btn-register:hover { background-color: var(--green-hover); }
+
+.auth-or {
+  color: var(--text-gray);
+}
+
+.access-denied, .users-access-denied {
+  padding: 1rem;
+  color: var(--text-error);
+}
+/*#endregion*/
+
+/*#region Формы входа и регистрации*/
+.login-container, .register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-black);
+}
+
+.login-card, .register-card {
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  width: 24rem;
+}
+
+.register-card {
+  max-width: 28rem;
+  width: 100%;
+}
+
+.login-title, .register-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--text-white);
+}
+
+.error-message, .error-message-register {
+  background-color: rgba(185, 28, 28, 0.2);
+  color: var(--text-error);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  border: 1px solid #7f1d1d;
+}
+
+.success-message {
+  background-color: rgba(22, 163, 74, 0.2);
+  color: var(--text-success);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  border: 1px solid #166534;
+}
+
+.login-input, .register-input {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+.login-input:focus, .register-input:focus {
+  border-color: var(--blue);
+  outline: none;
+}
+
+.login-button {
+  width: 100%;
+  background-color: var(--blue);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.register-select {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.register-select option {
+  background-color: var(--bg-input);
+  color: var(--text-white);
+}
+/*#endregion*/
+
+/*#region Домашнее задание и отправки*/
+.homework-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-input);
+}
+
+.homework-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+}
+
+.homework-item { margin-bottom: 1rem; }
+.homework-item-title { font-weight: bold; color: var(--text-white); }
+
+.submission-current {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #1e3a8a;
+  border-radius: var(--radius-md);
+  background-color: #0f172a;
+}
+
+.submission-title { font-weight: bold; margin-bottom: 0.5rem; color: var(--text-white); }
+.submission-link {
+  color: var(--blue);
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+.submission-link:hover {
+  color: var(--blue-hover);
+  text-decoration: underline;
+}
+
+.submission-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.submission-rejected { margin-top: 0.5rem; }
+.rejected-message { color: var(--text-error); margin-bottom: 0.5rem; }
+
+.submission-form { margin-top: 1rem; }
+.submission-form-title { font-weight: bold; margin-bottom: 0.5rem; color: var(--text-white); }
+
+.form-label { display: block; margin-bottom: 0.5rem; color: var(--text-white); }
+.form-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+.form-textarea:focus { border-color: var(--blue); outline: none; }
+
+.form-file { margin-bottom: 1rem; color: var(--text-white); }
+.form-hint { font-size: 0.875rem; color: var(--text-gray); margin-bottom: 1rem; }
+.form-actions { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+
+.btn-submit:disabled {
+  background-color: var(--gray);
+  cursor: not-allowed;
+}
+
+.submit-status { margin-top: 0.5rem; color: var(--text-white); }
+
+.submission-history {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #0a0a0a;
+}
+
+.history-title { font-weight: bold; margin-bottom: 0.5rem; color: var(--text-white); }
+.history-item {
+  border-left: 2px solid var(--border-color);
+  padding-left: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-gray-light);
+}
+.history-item p { margin-bottom: 0.25rem; }
+
+.homework-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #0a0a0a;
+  color: var(--text-gray);
+}
+
+.submission-student,
+.submission-lesson,
+.submission-student-comment,
+.submission-file {
+  margin-bottom: 0.5rem;
+  color: var(--text-white);
+}
+.submission-student strong,
+.submission-lesson strong,
+.submission-student-comment strong,
+.submission-file strong {
+  color: var(--text-gray-light);
+}
+
+.submission-file-link {
+  color: var(--blue);
+  margin-left: 0.5rem;
+  text-decoration: none;
+}
+.submission-file-link:hover {
+  color: var(--blue-hover);
+  text-decoration: underline;
+}
+
+.submission-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-top: 0.5rem;
+}
+.submission-textarea:focus { border-color: var(--blue); outline: none; }
+/*#endregion*/
+
+/*#region Таблица пользователей*/
+.users-table-container { overflow-x: auto; }
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-white);
+}
+.users-table th, .users-table td {
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  text-align: left;
+}
+.users-th {
+  background-color: var(--bg-input);
+  color: var(--text-gray-light);
+  font-weight: 600;
+}
+.users-td { background-color: var(--bg-card); color: var(--text-white); }
+/*#endregion*/
+
+/*#region Адаптив*/
+@media (max-width: 768px) {
+  .nav-container { flex-direction: column; }
+  .nav-user { margin-left: 0; }
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: 1fr; }
+}
+/*#endregion*/

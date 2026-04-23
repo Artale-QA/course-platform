@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: course-platform
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+      file-size-threshold: 2KB
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/course_platform}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin123}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        default_schema: course_platform
+        hibernate:
+          package_to_scan: com.example.course_platform.entity
+    open-in-view: false
+
+app:
+  upload:
+    path: ${UPLOAD_PATH:./uploads}
+    allowed-extensions: pdf, mp4, mp3, jpg, png, gif, txt, zip
+
+minio:
+  url: ${MINIO_URL:http://localhost:9000}
+  access-key: ${MINIO_ACCESS_KEY:minioadmin}
+  secret-key: ${MINIO_SECRET_KEY:minioadmin123}
+  bucket: ${MINIO_BUCKET:course-platform}
+
+jwt:
+  secret: ${JWT_SECRET:mySecretKeyForJWTGeneration2026WithAtLeast32CharactersLong}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+logging:
+  level:
+    com.example.courseplatform: DEBUG
+    org.hibernate.SQL: DEBUG

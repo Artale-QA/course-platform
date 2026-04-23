@@ -1,0 +1,1872 @@
+/*#region CSS переменные*/
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-card: #1a1a1a;
+  --bg-hover: #2a2a2a;
+  --bg-nav: rgba(10, 10, 10, 0.95);
+  --bg-input: #1f1f1f;
+  
+  --accent-blue: #3b82f6;
+  --accent-green: #16a34a;
+  --accent-red: #dc2626;
+  --accent-yellow: #eab308;
+  --accent-purple: #9333ea;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+  --text-muted: #737373;
+  
+  --gradient-blue: linear-gradient(135deg, #3b82f6, #2563eb);
+  --gradient-green: linear-gradient(135deg, #16a34a, #15803d);
+  --gradient-red: linear-gradient(135deg, #dc2626, #b91c1c);
+  --gradient-purple: linear-gradient(135deg, #9333ea, #7e22ce);
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 15px rgba(59, 130, 246, 0.3);
+  
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease-in-out;
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+/*#endregion*/
+
+/*#region Базовые стили*/
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--accent-blue); color: var(--text-primary); }
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+/*#endregion*/
+
+/*#region Навигация*/
+.navbar {
+  background: var(--bg-nav);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.nav-user { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
+
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.05); }
+.nav-link.active { color: var(--accent-blue); background: rgba(59, 130, 246, 0.1); }
+.user-name { color: var(--text-secondary); font-size: 0.875rem; }
+
+.nav-logout-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+.nav-logout-button:hover { border-color: var(--accent-red); background: rgba(220, 38, 38, 0.1); color: var(--accent-red); }
+
+@media (max-width: 768px) {
+  .nav-container { flex-direction: column; align-items: stretch; }
+  .nav-links { justify-content: center; }
+  .nav-user { justify-content: center; margin-left: 0; }
+}
+/*#endregion*/
+
+/*#region Общие компоненты (карточки, кнопки, формы)*/
+.card-base, .course-card, .my-course-card, .lesson-card, .submission-card, .feature-card, .step-item {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.card-base:hover, .course-card:hover, .my-course-card:hover, .lesson-card:hover, .feature-card:hover, .step-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+button, .btn-primary, .btn-secondary, .btn-login, .btn-register {
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary { background: var(--gradient-blue); color: white; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+.btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.1); }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+
+input, textarea, select {
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  font-size: 0.875rem;
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; }
+
+.error-message, .error-message-register {
+  background: rgba(220, 38, 38, 0.1);
+  border-left: 3px solid var(--accent-red);
+  color: #fca5a5;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  animation: slideIn 0.3s ease;
+}
+.success-message {
+  background: rgba(22, 163, 74, 0.1);
+  border-left: 3px solid var(--accent-green);
+  color: #86efac;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+/*#endregion*/
+
+/*#region Страницы (общий шаблон)*/
+.courses-page, .course-page, .my-courses-page, .lesson-page, .home-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+  padding: 3rem 1rem;
+}
+
+.courses-container, .course-container, .hero-container, .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header { text-align: center; margin-bottom: 3rem; }
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #ffffff, #a3a3a3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.section-subtitle { font-size: 1.125rem; color: var(--text-secondary); }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+/*#endregion*/
+
+/*#region Сетки*/
+.courses-grid, .my-courses-grid, .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.lessons-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+/*#endregion*/
+
+/*#region Карточки курсов и уроков*/
+.course-link, .my-course-link, .lesson-link { text-decoration: none; display: block; transition: transform 0.2s ease; }
+.course-link:hover, .my-course-link:hover, .lesson-link:hover { transform: translateY(-2px); }
+
+.course-card, .my-course-card { padding: 1.5rem; cursor: pointer; position: relative; overflow: hidden; }
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+.course-card:hover::before { transform: scaleX(1); }
+
+.course-title, .my-course-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  transition: color var(--transition-fast);
+}
+.course-link:hover .course-title { color: var(--accent-blue); }
+
+.course-description, .my-course-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.lesson-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+}
+.lesson-card:hover { background: var(--bg-hover); transform: translateX(4px); }
+.lesson-number { font-weight: 600; color: var(--accent-blue); font-size: 0.875rem; min-width: 70px; }
+.lesson-name { flex: 1; color: var(--text-primary); font-size: 1rem; }
+.lesson-arrow { color: var(--text-muted); opacity: 0; transition: opacity var(--transition-base); }
+.lesson-card:hover .lesson-arrow { opacity: 1; transform: translateX(4px); }
+
+.course-card-arrow { margin-left: 1rem; opacity: 0; transform: translateX(-10px); transition: all var(--transition-base); }
+.course-link:hover .course-card-arrow { opacity: 1; transform: translateX(0); }
+.arrow-icon { font-size: 1.25rem; color: var(--accent-blue); }
+/*#endregion*/
+
+/*#region Формы входа/регистрации*/
+.login-container, .register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  padding: 1rem;
+}
+.login-card, .register-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.login-title, .register-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background: var(--gradient-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.login-form { display: flex; flex-direction: column; gap: 1rem; }
+.login-button { width: 100%; padding: 0.75rem; background: var(--gradient-blue); color: white; border-radius: var(--radius-md); margin-top: 0.5rem; }
+/*#endregion*/
+
+/*#region Страница урока (домашнее задание, отправки)*/
+.homework-section { padding: 1.5rem; margin-bottom: 1rem; }
+.homework-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent-blue);
+  display: inline-block;
+}
+.homework-item { margin-bottom: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-md); }
+.homework-item-title { font-size: 1.125rem; font-weight: 600; color: var(--accent-blue); margin-bottom: 0.5rem; }
+
+.submission-current {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+}
+.submission-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.submission-row strong { min-width: 140px; color: var(--text-secondary); }
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.status-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.status-approved { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+.status-rejected { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+.btn-edit { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.btn-delete { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+.btn-resubmit, .btn-submit { background: linear-gradient(135deg, var(--accent-green), #15803d); color: white; }
+.btn-cancel { background: rgba(255, 255, 255, 0.1); color: var(--text-secondary); }
+.form-actions { display: flex; gap: 0.75rem; margin-top: 1rem; }
+
+.submission-history { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.history-item {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--accent-blue);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+}
+.history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
+
+.file-link, .submission-link { color: var(--accent-blue); text-decoration: underline; }
+.auth-link { color: var(--accent-blue); text-decoration: none; font-weight: 500; }
+.auth-link:hover { text-decoration: underline; }
+
+.auth-warning, .auth-required {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+/*#endregion*/
+
+/*#region Главная страница - самые крутые эффекты*/
+/* Hero секция с анимацией */
+.hero-section {
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1), transparent 50%);
+  pointer-events: none;
+}
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+.hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; }
+.hero-title-gradient { background: linear-gradient(135deg, #3b82f6, #9333ea); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-description { font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem; }
+.hero-buttons { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+.stat-number { font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); }
+.stat-label { font-size: 0.875rem; color: var(--text-muted); }
+
+/* Плавающая иконка */
+.hero-image-placeholder {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+.hero-image-icon { font-size: 8rem; }
+
+/* Секции */
+.features-section, .how-it-works { padding: 5rem 1rem; }
+.how-it-works { background: var(--bg-secondary); }
+
+.steps-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.step-item { text-align: center; flex: 1; min-width: 180px; padding: 2rem; }
+.step-number {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+.step-arrow { font-size: 1.5rem; color: var(--accent-blue); }
+
+/* CTA секция */
+.cta-section {
+  padding: 5rem 1rem;
+  background: linear-gradient(135deg, #1e1e2f, #1a1a2e);
+  text-align: center;
+}
+.cta-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+.cta-description { font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem; }
+
+/* Анимация появления карточек */
+.course-card { animation: fadeInUp 0.4s ease-out forwards; opacity: 0; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.course-card:nth-child(1) { animation-delay: 0.05s; }
+.course-card:nth-child(2) { animation-delay: 0.1s; }
+.course-card:nth-child(3) { animation-delay: 0.15s; }
+.course-card:nth-child(4) { animation-delay: 0.2s; }
+.course-card:nth-child(5) { animation-delay: 0.25s; }
+.course-card:nth-child(6) { animation-delay: 0.3s; }
+/*#endregion*/
+
+/*#region Таблица пользователей*/
+.users-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.users-table th, .users-table td { padding: 1rem; text-align: left; }
+.users-table th { background: var(--bg-secondary); color: var(--text-secondary); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.users-table td { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+.users-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+/*#endregion*/
+
+/*#region Адаптив*/
+@media (max-width: 968px) {
+  .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+  .hero-buttons { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .steps-grid { flex-direction: column; }
+  .step-arrow { transform: rotate(90deg); }
+  .hero-title { font-size: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .courses-grid, .my-courses-grid, .features-grid { grid-template-columns: 1fr; }
+  .section-title, .cta-title { font-size: 1.5rem; }
+  .hero-title { font-size: 2rem; }
+  .hero-image-placeholder { width: 250px; height: 250px; }
+  .hero-image-icon { font-size: 5rem; }
+  .course-page, .my-courses-page, .lesson-page { padding: 1rem; }
+  .submission-row { flex-direction: column; gap: 0.25rem; }
+  .submission-row strong { min-width: auto; }
+  .form-actions { flex-direction: column; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .courses-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/*#endregion*/
+
+/*#region Страница проверки заданий*/
+.submissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  gap: 1.5rem;
+}
+
+.submission-student,
+.submission-lesson,
+.submission-student-comment,
+.submission-file {
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.submission-student strong,
+.submission-lesson strong,
+.submission-student-comment strong,
+.submission-file strong {
+  color: var(--text-secondary);
+  min-width: 140px;
+  display: inline-block;
+}
+
+.submission-student span,
+.submission-lesson span {
+  color: var(--text-primary);
+  margin-left: 0.5rem;
+}
+
+.submission-student-comment p {
+  margin-top: 0.25rem;
+  margin-left: 0;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 768px) {
+  .submissions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .submission-student strong,
+  .submission-lesson strong,
+  .submission-student-comment strong,
+  .submission-file strong {
+    min-width: auto;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  .submission-student span,
+  .submission-lesson span {
+    margin-left: 0;
+    display: block;
+  }
+}
+/*#endregion*/
+
+/*#region Страница курсов - супер стиль*/
+.courses-page {
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+}
+
+.courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.courses-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.courses-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #ffffff, #a3a3a3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.courses-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.course-link {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.course-link:hover {
+  transform: translateY(-4px);
+}
+
+.course-card {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.course-card:hover::before {
+  transform: scaleX(1);
+}
+
+.course-card:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+.course-card-content {
+  flex: 1;
+}
+
+.course-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  transition: color var(--transition-fast);
+}
+
+.course-link:hover .course-title {
+  color: var(--accent-blue);
+}
+
+.course-description {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.course-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+}
+
+.course-lessons-icon {
+  font-size: 0.875rem;
+}
+
+.course-lessons {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.course-card-arrow {
+  margin-left: 1rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--transition-base);
+}
+
+.course-link:hover .course-card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.arrow-icon {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+}
+
+/* Анимация появления карточек */
+.course-card {
+  animation: fadeInUp 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Задержки для карточек */
+.course-card:nth-child(1) { animation-delay: 0.05s; }
+.course-card:nth-child(2) { animation-delay: 0.1s; }
+.course-card:nth-child(3) { animation-delay: 0.15s; }
+.course-card:nth-child(4) { animation-delay: 0.2s; }
+.course-card:nth-child(5) { animation-delay: 0.25s; }
+.course-card:nth-child(6) { animation-delay: 0.3s; }
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .courses-page {
+    padding: 2rem 1rem;
+  }
+  
+  .courses-title {
+    font-size: 1.75rem;
+  }
+  
+  .courses-subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .course-card {
+    padding: 1.25rem;
+  }
+  
+  .course-card-arrow {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/*#endregion*/
+
+/*#region Страница курсов - вертикаль*/
+/* Стиль для вертикального списка уроков */
+.lesson-card-vertical {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Верхняя полоска при наведении */
+.lesson-card-vertical::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  transform: scaleX(0);
+  transition: transform var(--transition-base);
+}
+
+.lesson-card-vertical:hover::before {
+  transform: scaleX(1);
+}
+
+.lesson-card-vertical:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Левая часть с информацией об уроке */
+.lesson-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lesson-number {
+  font-weight: 600;
+  color: var(--accent-blue);
+  font-size: 0.875rem;
+  min-width: 70px;
+}
+
+.lesson-name {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Стрелка */
+.course-card-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.1);
+  transition: all var(--transition-base);
+}
+
+.arrow-icon {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+  transition: all var(--transition-base);
+}
+
+.lesson-card-vertical:hover .course-card-arrow {
+  background: var(--accent-blue);
+}
+
+.lesson-card-vertical:hover .arrow-icon {
+  color: white;
+}
+
+/* Ссылка */
+.course-link {
+  text-decoration: none;
+  display: block;
+}
+
+/* Сетка уроков */
+.lessons-vertical-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+
+/*#endregion*/
+
+/*#region 4 элемента на главной странице*/
+.features-section {
+  padding: 3rem 0;
+  background-color: transparent;  /* ← убираем серый фон */
+  border-radius: 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+}
+/*#endregion*/
+
+/*#region Страница пользователей*/
+.users-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+
+.users-table th,
+.users-table td {
+  padding: 1rem;
+  text-align: left;
+  background: transparent;
+}
+
+.users-table th {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.users-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.users-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.users-delete-btn {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.users-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+/*#endregion*/
+
+/*#region Модальное окно*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-message {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+/*#endregion*/
+
+/*#region Плавное появление контента*/
+
+/* Скрываем контент до полной загрузки */
+.main-content {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.main-content.loading {
+  opacity: 0;
+}
+
+/* Убираем анимацию появления */
+.main-content {
+  animation: none;
+}
+
+/* Загрузочный экран на весь экран */
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.2s ease;
+}
+
+.page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*#endregion*/
+
+/*#region File Viewer*/
+.video-preview {
+  margin: 1rem 0;
+}
+
+.video-player {
+  width: 100%;
+  max-width: 640px;
+  border-radius: 0.5rem;
+  background: #000;
+}
+
+.video-actions {
+  margin-top: 0.5rem;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.pdf-viewer {
+  width: 100%;
+  height: 600px;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.audio-player {
+  width: 100%;
+  max-width: 400px;
+}
+
+.download-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}
+
+.btn-approve {
+  background-color: #10b981;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+.btn-approve:hover {
+  background-color: #059669;
+}
+/*#endregion*/
+
+/*#region Маркетинговая страница курса */
+.course-marketing-block {
+  margin-bottom: 3rem;
+}
+
+.marketing-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.marketing-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.marketing-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.marketing-description {
+  font-size: 1rem;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.marketing-features {
+  margin-bottom: 2rem;
+}
+
+.marketing-tariffs {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.tariffs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.tariff-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tariff-price {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #3b82f6;
+  margin: 1rem 0;
+}
+
+.tariff-title
+{
+  font-size: 2rem;
+  color: #3b82f6;
+}
+
+.tariff-description
+{
+  color: #000000;
+}
+
+.btn-buy {
+  background: #3b82f6;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.course-link.disabled {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.lock-icon {
+  font-size: 1.25rem;
+  opacity: 0.6;
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+/*#endregion*/
+
+/*#region Тарифы*/
+ .message-success {
+          background: #d1fae5;
+          color: #059669;
+          padding: 1rem;
+          border-radius: 0.5rem;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+        .tariffs-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1.5rem;
+          margin: 2rem 0;
+        }
+        .tariff-card {
+          background: white;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          text-align: center;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          transition: transform 0.2s;
+        }
+        .tariff-card:hover {
+          transform: translateY(-4px);
+        }
+        .tariff-icon {
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+        }
+        .tariff-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+        }
+        .tariff-price {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #3b82f6;
+          margin: 0.5rem 0;
+        }
+        .tariff-lessons {
+          color: #6b7280;
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+        }
+        .btn-buy {
+          width: 100%;
+          background: #3b82f6;
+          color: white;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          border: none;
+          cursor: pointer;
+        }
+        .btn-buy:hover {
+          background: #2563eb;
+        }
+        .btn-buy:disabled {
+          background: #9ca3af;
+          cursor: not-allowed;
+        }
+        .tariff-warning {
+          font-size: 0.875rem;
+          color: #6b7280;
+          padding: 0.5rem;
+          background: #f3f4f6;
+          border-radius: 0.5rem;
+        }
+        
+        /* Модальное окно */
+        .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 0.75rem;
+  width: 90%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.modal-close:hover {
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.selected-tariff-info {
+  background: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.selected-tariff-info p {
+  color: #374151;
+}
+
+.tariff-price-modal {
+  font-weight: 700;
+  color: #3b82f6;
+  margin-top: 0.25rem;
+}
+
+.login-error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.btn-pay {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.btn-pay:hover {
+  background: #2563eb;
+}
+
+.btn-pay:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.modal-footer-links {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.register-link {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+/*#endregion*/
+
+/*#region Видеопроигрыватель на странице с уроками*/
+.lesson-video {
+  margin: 0rem 0;
+  width: 100%;
+  position: relative;
+}
+
+.video-player {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0.75rem;
+  background: #000;
+}
+
+/* Плейсхолдер пока видео грузится */
+.lesson-video::before {
+  content: '🎬 Загрузка видео...';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: #666;
+  font-size: 0.875rem;
+  border-radius: 0.75rem;
+  pointer-events: none;
+}
+
+.video-player::before {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0.75rem;
+  background: #000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-video video:not([src=""]) {
+  position: relative;
+  aspect-ratio: 16/9;
+  z-index: 1;
+}
+
+/*#endregion*/
+
+/*#region Админ панель*/
+/* Страница */
+.admin-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Заголовок страницы */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.admin-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Формы */
+.form-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-page h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.form-page label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-page input, 
+.form-page textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+/* Кнопки */
+button, .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.btn-primary, button[type="submit"] {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover, button[type="submit"]:hover {
+  background: #2563eb;
+}
+
+.btn-secondary, button[type="button"] {
+  background: #6b7280;
+  color: white;
+}
+
+.btn-secondary:hover, button[type="button"]:hover {
+  background: #4b5563;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+/* Карточки */
+.admin-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.admin-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.admin-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.admin-card p {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.admin-card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Список уроков */
+.lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lesson-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.lesson-order {
+  font-weight: 600;
+  color: #3b82f6;
+  margin-right: 1rem;
+}
+
+.lesson-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Тарифы */
+.tariffs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.tariff-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Ссылки */
+a {
+  text-decoration: none;
+}
+
+/* Группа кнопок */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Сообщения */
+.loading, .access-denied {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+}
+
+.access-denied {
+  color: #ef4444;
+}
+/*#endregion*/
+
+/*#region Админ страница пользователей*/
+.btn-create {
+          background: #10b981;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+        }
+        .btn-edit {
+          background: #f59e0b;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+          margin-right: 0.25rem;
+        }
+        .btn-delete {
+          background: #ef4444;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+        }
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+        .modal-content {
+          background: white;
+          border-radius: 0.75rem;
+          width: 90%;
+          max-width: 500px;
+          max-height: 90vh;
+          overflow: auto;
+        }
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+        .modal-header h2 {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+        .modal-close {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        .modal-body {
+          padding: 1.5rem;
+        }
+        .modal-footer {
+          display: flex;
+          justify-content: flex-end;
+          gap: 0.75rem;
+          padding: 1rem 1.5rem;
+          border-top: 1px solid #e5e7eb;
+        }
+        .form-group {
+          margin-bottom: 1rem;
+        }
+        .form-group label {
+          display: block;
+          margin-bottom: 0.25rem;
+          font-weight: 500;
+        }
+        .form-group input, .form-group select {
+          width: 100%;
+          padding: 0.5rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.375rem;
+        }
+        .form-error {
+          background: #fee2e2;
+          color: #dc2626;
+          padding: 0.5rem;
+          border-radius: 0.375rem;
+          margin-bottom: 1rem;
+        }
+        .btn-save {
+          background: #10b981;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+        }
+        .btn-cancel {
+          background: #6b7280;
+          color: white;
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+        }
+        .btn-tariffs {
+          background: #8b5cf6;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+          margin-right: 0.25rem;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .btn-homework {
+          background: #10b981;
+          color: white;
+          padding: 0.25rem 0.5rem;
+          border: none;
+          border-radius: 0.375rem;
+          cursor: pointer;
+          margin-right: 0.25rem;
+          text-decoration: none;
+          display: inline-block;
+        }
+        
+/*#endregion*/
