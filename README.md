@@ -122,10 +122,12 @@ docker-compose ps
 | **PostgreSQL** | admin| admin123 |
 | **Бэкенд (JWT)** | любой email | 123456 |
 
+---
+
 ##📊 Нагрузочное тестирование
 #Gatling тесты
 
-bash:
+```bash:
 # Регистрация пользователей (30 пользователей за 30 секунд)
 ./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.AuthSimulation
 
@@ -137,8 +139,11 @@ bash:
 ✅ 0% ошибок при нагрузке
 ✅ Средний ответ API: <200ms
 
+```
+
 ###Основные эндпоинты
 
+```bash
 # Аутентификация
 POST /auth/register    - Регистрация
 POST /auth/login       - Вход (JWT токен)
@@ -162,7 +167,7 @@ POST /payments/simulate - Симуляция оплаты
 # Админ панель
 GET  /admin/users      - Список пользователей
 PUT  /admin/users/{id}/role - Сменить роль
-
+```
 
 ## 📡 API Документация
 После запуска доступен Swagger UI:
