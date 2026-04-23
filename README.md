@@ -118,9 +118,9 @@ docker-compose ps
 ## 🔑 Доступы по умолчанию
 | Сервис | Логин | Пароль |
 |--------|-------|--------|
-| **MinIO Console** | minioadmin | minioadmin123 |
-| **PostgreSQL** | admin| admin123 |
-| **Бэкенд (JWT)** | любой email | 123456 |
+| **🗄️ MinIO Console** | minioadmin | minioadmin123 |
+| **🐘 PostgreSQL** | admin| admin123 |
+| **🔐 Бэкенд (JWT)** | любой email | 123456 |
 
 ---
 
@@ -134,6 +134,7 @@ docker-compose ps
 
 # Нагрузочное тестирование API курсов (просмотр превью, полной информации и авторизованный доступ)
 ./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.CoursesSimulation
+
 Результаты тестов:
 
 ✅ 30 RPS стабильно
