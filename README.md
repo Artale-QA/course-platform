@@ -113,15 +113,17 @@ docker-compose ps
 # Backend: http://localhost:8080
 # Swagger: http://localhost:8080/swagger-ui.html
 # MinIO Console: http://localhost:9001
+```
 
-🔑 Доступы по умолчанию
-Сервис	Логин	Пароль
-MinIO Console	minioadmin	minioadmin123
-PostgreSQL	admin	admin123
-Бэкенд (JWT)	любой email	123456
+## 🔑 Доступы по умолчанию
+| Сервис | Логин | Пароль |
+|--------|-------|--------|
+| **MinIO Console** | minioadmin | minioadmin123 |
+| **PostgreSQL** | admin| admin123 |
+| **Бэкенд (JWT)** | любой email | 123456 |
 
-📊 Нагрузочное тестирование
-Gatling тесты
+##📊 Нагрузочное тестирование
+#Gatling тесты
 
 bash:
 # Регистрация пользователей (30 пользователей за 30 секунд)
@@ -160,7 +162,12 @@ POST /payments/simulate - Симуляция оплаты
 # Админ панель
 GET  /admin/users      - Список пользователей
 PUT  /admin/users/{id}/role - Сменить роль
-```
+
+
+## 📡 API Документация
+После запуска доступен Swagger UI:
+
+http://localhost:8080/swagger-ui.html
 
 ## 📞 Контакты
  - Автор: Artale_QA
