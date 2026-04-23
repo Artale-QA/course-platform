@@ -162,7 +162,7 @@ GET  /admin/users      - Список пользователей
 PUT  /admin/users/{id}/role - Сменить роль
 ```
 
-### 📞 Контакты
-# Автор: Artale_QA
-# GitHub: github.com/Artale_QA
+## 📞 Контакты
+ - Автор: Artale_QA
+ - GitHub: github.com/Artale_QA
 
