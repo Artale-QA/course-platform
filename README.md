@@ -122,7 +122,8 @@ PostgreSQL	admin	admin123
 
 📊 Нагрузочное тестирование
 Gatling тесты
-bash
+
+bash:
 # Регистрация пользователей (30 пользователей за 30 секунд)
 ./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.AuthSimulation
 
@@ -159,7 +160,7 @@ POST /payments/simulate - Симуляция оплаты
 # Админ панель
 GET  /admin/users      - Список пользователей
 PUT  /admin/users/{id}/role - Сменить роль
-```bash
+```
 
 ### 📞 Контакты
 # Автор: Artale_QA
