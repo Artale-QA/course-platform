@@ -125,9 +125,10 @@ docker-compose ps
 ---
 
 ## 📊 Нагрузочное тестирование
-# Gatling тесты
 
 ```bash:
+# Gatling тесты
+
 # Регистрация пользователей (30 пользователей за 30 секунд)
 ./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.AuthSimulation
 
