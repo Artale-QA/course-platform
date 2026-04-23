@@ -132,8 +132,8 @@ docker-compose ps
 # Регистрация пользователей (30 пользователей за 30 секунд)
 ./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.AuthSimulation
 
-# Сценарии покупки курса
-./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.PaymentSimulation
+# Нагрузочное тестирование API курсов (просмотр превью, полной информации и авторизованный доступ)
+./mvnw gatling:test -Dgatling.simulationClass=com.example.course_platform.CoursesSimulation
 Результаты тестов:
 
 ✅ 30 RPS стабильно
