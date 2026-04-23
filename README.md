@@ -31,8 +31,11 @@
 | 📊 **Базы данных** | PostgreSQL, Hibernate, миграции |
 | ☁️ **Облачное хранилище** | MinIO (S3-совместимое) |
 | 📈 **Нагрузочное тестирование** | Gatling (30+ RPS) |
+| 🧪 **Юнит-тестирование** | JUnit 5 + Mockito |
 | 📝 **Документация** | Swagger/OpenAPI |
-| 🎨 **Frontend** | Next.js 15, CSS |
+| 🎨 **Frontend** | Next.js 15, TypeScript, CSS Modules |
+| 🎯 **State Management** | React Hooks (useState, useEffect) |
+| 📡 **HTTP клиент** | Axios |
 
 ---
 
@@ -45,7 +48,7 @@
 
 ### 📖 **Курсы и уроки**
 - Создание и управление курсами
-- Загрузка материалов (видео, PDF, изображения)
+- Загрузка материалов (видео)
 - Структурированные уроки с контентом
 
 ### 📝 **Домашние задания**
@@ -63,21 +66,26 @@
 ## 🛠 Технологии
 
 ### Backend
-Spring Boot 4.0.5 → Основной фреймворк
-Spring Security → Аутентификация и авторизация
-JWT → Токены доступа
-Hibernate/JPA → ORM, работа с БД
-PostgreSQL 18 → Реляционная БД
-MinIO → S3-хранилище для файлов
+ - Spring Boot 4.0.5 → Основной фреймворк
+ - Spring Security → Аутентификация и авторизация
+ - JWT → Токены доступа
+ - Hibernate/JPA → ORM, работа с БД
+ - PostgreSQL 18 → Реляционная БД
+ - MinIO → S3-хранилище для файлов
+ - JUnit 5 + Mockito → Юнит-тестирование
+ - Gatling → Нагрузочное тестирование
 
 ### Frontend
-Next.js 15 → React фреймворк с SSR
-TypeScript → Типизация
+ - Next.js 15 → React фреймворк с SSR
+ - TypeScript → Типизация
+ - CSS Modules → Стилизация компонентов
+ - Axios → HTTP клиент
+ - React Hooks → Управление состоянием
 
 ### DevOps
-Docker / Docker Compose → Контейнеризация
-Maven → Сборка
-GitHub Actions → CI/CD (планируется)
+ - Docker / Docker Compose → Контейнеризация
+ - Maven → Сборка
+ - GitHub Actions → CI/CD (планируется)
 
 
 ## 🚀 Быстрый старт
@@ -147,3 +155,12 @@ GET  /submissions/{id} - Проверить ДЗ (Teacher)
 
 # Платежи
 POST /payments/simulate - Симуляция оплаты
+
+# Админ панель
+GET  /admin/users      - Список пользователей
+PUT  /admin/users/{id}/role - Сменить роль
+
+### 📞 Контакты
+# Автор: Artale_QA
+# GitHub: github.com/Artale_QA
+
