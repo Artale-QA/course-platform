@@ -159,6 +159,7 @@ POST /payments/simulate - Симуляция оплаты
 # Админ панель
 GET  /admin/users      - Список пользователей
 PUT  /admin/users/{id}/role - Сменить роль
+```bash
 
 ### 📞 Контакты
 # Автор: Artale_QA
